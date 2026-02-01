@@ -92,6 +92,10 @@
     "fromFile": "Од датотека",
     "search": "Пребарај по налог или опис...",
     "noRecords": "Нема записи",
+    "tabs": {
+      "analyticalCards": "Аналитички картици",
+      "balanceSheets": "Заклучни листи"
+    },
     "columns": {
       "nalog": "Налог",
       "data": "Дата",
@@ -103,7 +107,10 @@
       "dolguja": "Долгува",
       "pobaruva": "Побарува",
       "invoiceNumber": "Број на фактура",
-      "source": "Извор"
+      "source": "Извор",
+      "konto": "Конто",
+      "accountName": "Име на конто",
+      "saldo": "Салдо"
     },
     "summary": {
       "totalRecords": "Вкупно записи",

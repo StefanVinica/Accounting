@@ -6,6 +6,7 @@ import { supabase } from './supabase'
 export async function listRecords(userId, options = {}) {
   const {
     fileId,
+    documentType,
     search,
     dateFrom,
     dateTo,
@@ -17,12 +18,17 @@ export async function listRecords(userId, options = {}) {
 
   let query = supabase
     .from('records')
-    .select('*, files!inner(file_name)', { count: 'exact' })
+    .select('*, files!inner(file_name, document_type)', { count: 'exact' })
     .eq('owner_id', userId)
 
   // Filter by file
   if (fileId) {
     query = query.eq('file_id', fileId)
+  }
+
+  // Filter by document type (via files table)
+  if (documentType) {
+    query = query.eq('files.document_type', documentType)
   }
 
   // Search in nalog or opis
@@ -76,14 +82,18 @@ export async function getRecordsByFile(fileId) {
 /**
  * Get record statistics for a user or file
  */
-export async function getRecordStats(userId, fileId = null) {
+export async function getRecordStats(userId, fileId = null, documentType = null) {
   let query = supabase
     .from('records')
-    .select('dolguja, pobaruva, file_id')
+    .select('dolguja, pobaruva, file_id, files!inner(document_type)')
     .eq('owner_id', userId)
 
   if (fileId) {
     query = query.eq('file_id', fileId)
+  }
+
+  if (documentType) {
+    query = query.eq('files.document_type', documentType)
   }
 
   const { data, error } = await query

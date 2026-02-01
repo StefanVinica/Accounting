@@ -92,6 +92,10 @@
     "fromFile": "From File",
     "search": "Search by document number or description...",
     "noRecords": "No records",
+    "tabs": {
+      "analyticalCards": "Analytical Cards",
+      "balanceSheets": "Balance Sheets"
+    },
     "columns": {
       "nalog": "Document #",
       "data": "Date",
@@ -103,7 +107,10 @@
       "dolguja": "Debit",
       "pobaruva": "Credit",
       "invoiceNumber": "Invoice #",
-      "source": "Source"
+      "source": "Source",
+      "konto": "Account Code",
+      "accountName": "Account Name",
+      "saldo": "Balance"
     },
     "summary": {
       "totalRecords": "Total Records",
