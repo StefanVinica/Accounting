@@ -172,9 +172,14 @@ function formatDate(dateStr) {
                 <span class="uppercase text-xs font-medium text-gray-500">{{ file.file_type }}</span>
               </td>
               <td>
-                <span v-if="file.document_type" class="text-sm text-gray-600">
-                  {{ t(`files.documentTypes.${file.document_type}`) }}
-                </span>
+                <div v-if="file.document_type">
+                  <span class="text-sm text-gray-600">
+                    {{ t(`files.documentTypes.${file.document_type}`) }}
+                  </span>
+                  <div v-if="file.konto_number" class="text-xs text-gray-400 mt-0.5">
+                    {{ file.konto_number }} - {{ file.konto_name }}
+                  </div>
+                </div>
                 <span v-else class="text-gray-400">-</span>
               </td>
               <td>{{ formatFileSize(file.file_size) }}</td>
