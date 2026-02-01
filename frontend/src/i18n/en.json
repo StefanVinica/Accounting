@@ -154,7 +154,7 @@
     "result": {
       "title": "Merge Result",
       "stats": "Statistics",
-      "overlapCount": "Overlapping Documents",
+      "overlapCount": "Matched Invoices",
       "exportExcel": "Export Excel",
       "exportCSV": "Export CSV"
     },

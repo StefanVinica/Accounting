@@ -422,6 +422,7 @@ function formatDate(dateStr) {
                   <th>{{ t('records.columns.data') }}</th>
                   <th>{{ t('records.columns.m_ddv') }}</th>
                   <th>{{ t('records.columns.opis') }}</th>
+                  <th>{{ t('records.columns.invoiceNumber') }}</th>
                   <th class="text-right">{{ t('records.columns.dolguja') }}</th>
                   <th class="text-right">{{ t('records.columns.pobaruva') }}</th>
                 </tr>
@@ -433,17 +434,18 @@ function formatDate(dateStr) {
                       {{ record.files?.file_name || '-' }}
                     </span>
                   </td>
-                  <td class="font-mono">
-                    <span
-                      :class="{ 'text-orange-600 font-bold': result.stats.overlappingNalog.includes(record.nalog) }"
-                      :title="result.stats.overlappingNalog.includes(record.nalog) ? 'Appears in multiple files' : ''"
-                    >
-                      {{ record.nalog || '-' }}
-                    </span>
-                  </td>
+                  <td class="font-mono">{{ record.nalog || '-' }}</td>
                   <td>{{ formatDate(record.data) }}</td>
                   <td>{{ record.m_ddv || '-' }}</td>
                   <td class="max-w-xs truncate" :title="record.opis">{{ record.opis || '-' }}</td>
+                  <td class="font-mono text-sm">
+                    <span
+                      :class="{ 'text-orange-600 font-bold': result.stats.overlappingInvoices.includes(record.invoice_number) }"
+                      :title="result.stats.overlappingInvoices.includes(record.invoice_number) ? 'Matched invoice' : ''"
+                    >
+                      {{ record.invoice_number || '-' }}
+                    </span>
+                  </td>
                   <td class="text-right font-mono text-red-600">
                     {{ record.dolguja ? formatNumber(record.dolguja) : '-' }}
                   </td>
@@ -454,7 +456,7 @@ function formatDate(dateStr) {
               </tbody>
               <tfoot class="bg-gray-50 font-semibold">
                 <tr>
-                  <td colspan="5" class="text-right">Totals:</td>
+                  <td colspan="6" class="text-right">Totals:</td>
                   <td class="text-right font-mono text-red-600">{{ formatNumber(result.stats.totalDolguja) }}</td>
                   <td class="text-right font-mono text-green-600">{{ formatNumber(result.stats.totalPobaruva) }}</td>
                 </tr>

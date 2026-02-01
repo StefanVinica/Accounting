@@ -154,7 +154,7 @@
     "result": {
       "title": "Резултат од спојување",
       "stats": "Статистика",
-      "overlapCount": "Преклопени налози",
+      "overlapCount": "Поврзани фактури",
       "exportExcel": "Извези Excel",
       "exportCSV": "Извези CSV"
     },

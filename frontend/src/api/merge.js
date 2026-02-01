@@ -128,10 +128,10 @@ function calculateMergeStats(records, mergeJobFiles) {
     totalPobaruva: 0,
     balance: 0,
     bySource: {},
-    overlappingNalog: new Set()
+    overlappingInvoices: new Set()
   }
 
-  const nalogCounts = {}
+  const invoiceCounts = {}
 
   for (const record of records) {
     const dolguja = parseFloat(record.dolguja) || 0
@@ -149,22 +149,22 @@ function calculateMergeStats(records, mergeJobFiles) {
     stats.bySource[sourceName].dolguja += dolguja
     stats.bySource[sourceName].pobaruva += pobaruva
 
-    // Track overlapping nalog codes
-    if (record.nalog) {
-      nalogCounts[record.nalog] = (nalogCounts[record.nalog] || 0) + 1
+    // Track overlapping invoice numbers (records with same invoice across files)
+    if (record.invoice_number) {
+      invoiceCounts[record.invoice_number] = (invoiceCounts[record.invoice_number] || 0) + 1
     }
   }
 
   stats.balance = stats.totalPobaruva - stats.totalDolguja
 
-  // Find overlapping nalog codes (appear in multiple records)
-  for (const [nalog, count] of Object.entries(nalogCounts)) {
+  // Find overlapping invoice numbers (appear in multiple records)
+  for (const [invoice, count] of Object.entries(invoiceCounts)) {
     if (count > 1) {
-      stats.overlappingNalog.add(nalog)
+      stats.overlappingInvoices.add(invoice)
     }
   }
-  stats.overlapCount = stats.overlappingNalog.size
-  stats.overlappingNalog = Array.from(stats.overlappingNalog)
+  stats.overlapCount = stats.overlappingInvoices.size
+  stats.overlappingInvoices = Array.from(stats.overlappingInvoices)
 
   return stats
 }
