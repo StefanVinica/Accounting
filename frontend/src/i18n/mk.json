@@ -73,8 +73,8 @@
       "actions": "Акции"
     },
     "documentTypes": {
-      "analytical_card_simple": "Ан. картица",
-      "analytical_card_detailed": "Ан. картица (детална)",
+      "analytical_card_simple": "Ан. картица (конто)",
+      "analytical_card_detailed": "Ан. картица (фирма)",
       "balance_sheet": "Заклучна листа",
       "unknown": "Непознат"
     },

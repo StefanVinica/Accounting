@@ -73,8 +73,8 @@
       "actions": "Actions"
     },
     "documentTypes": {
-      "analytical_card_simple": "Analytical Card",
-      "analytical_card_detailed": "Analytical Card (Detailed)",
+      "analytical_card_simple": "Analytical Card (Account)",
+      "analytical_card_detailed": "Analytical Card (Company)",
       "balance_sheet": "Balance Sheet",
       "unknown": "Unknown"
     },
