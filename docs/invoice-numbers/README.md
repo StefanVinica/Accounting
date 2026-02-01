@@ -24,10 +24,21 @@ The system handles three types of accounting documents:
 - **Columns**: Includes additional `Конто` and `Име на контото` columns
 - **Invoice sources**: Found in `Опис` and `Затворање` columns
 
-### 3. Balance Sheet (Заклучна листа)
-- **Structure**: Summary balances per account
-- **Columns**: Includes `Почетно салдо` and `Крајно салдо` (opening/closing balance)
-- **Invoice extraction**: Not applicable (summary data only)
+### 3. Balance Sheet (Заклучна листа / ЗЛ)
+- **Structure**: Summary balances per account - aggregated totals, not transactions
+- **Header position**: Row 1 (0-indexed)
+- **Columns**: `Име на конто`, `Конто`, `Долгува`, `Побарува`, `Салдо`, `Дел.един`
+- **Invoice extraction**: Not applicable (summary data, no individual transactions)
+
+**Balance Sheet Column Mapping:**
+| Macedonian | English | Stored In |
+|------------|---------|-----------|
+| Име на конто | Account Name | `opis` |
+| Конто | Account Code | `nalog`, `zatvoranje` |
+| Долгува | Total Debit | `dolguja` |
+| Побарува | Total Credit | `pobaruva` |
+| Салдо | Balance | `zabeleska` (as note) |
+| Дел.един | Partial Unit | `edin` |
 
 ---
 
