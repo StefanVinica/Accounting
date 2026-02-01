@@ -1,0 +1,189 @@
+{
+  "app": {
+    "name": "Сметководствена Платформа",
+    "tagline": "Управување со сметководствени документи"
+  },
+  "nav": {
+    "dashboard": "Почетна",
+    "files": "Датотеки",
+    "records": "Записи",
+    "clients": "Клиенти",
+    "merge": "Спојување",
+    "profile": "Профил",
+    "logout": "Одјава"
+  },
+  "auth": {
+    "login": "Најава",
+    "signup": "Регистрација",
+    "email": "Е-пошта",
+    "password": "Лозинка",
+    "confirmPassword": "Потврди лозинка",
+    "fullName": "Име и презиме",
+    "companyName": "Име на фирма",
+    "role": "Улога",
+    "accountant": "Сметководител",
+    "client": "Клиент",
+    "loginButton": "Најави се",
+    "signupButton": "Регистрирај се",
+    "noAccount": "Немате сметка?",
+    "hasAccount": "Имате сметка?",
+    "forgotPassword": "Заборавена лозинка?",
+    "welcomeBack": "Добредојдовте назад",
+    "createAccount": "Креирај сметка"
+  },
+  "dashboard": {
+    "welcome": "Добредојдовте",
+    "recentFiles": "Последни датотеки",
+    "pendingInvites": "Чекаат покани",
+    "quickActions": "Брзи акции",
+    "uploadFile": "Прикачи датотека",
+    "createMerge": "Ново спојување",
+    "inviteClient": "Покани клиент",
+    "stats": {
+      "files": "Датотеки",
+      "records": "Записи",
+      "clients": "Клиенти",
+      "mergeJobs": "Спојувања"
+    }
+  },
+  "files": {
+    "title": "Датотеки",
+    "upload": "Прикачи датотека",
+    "dragDrop": "Повлечи и пушти датотеки тука",
+    "or": "или",
+    "browse": "Избери датотека",
+    "allowedTypes": "Дозволени формати: Excel (.xlsx, .xls), CSV, PDF",
+    "maxSize": "Максимална големина: 10MB",
+    "noFiles": "Нема прикачени датотеки",
+    "uploadFirst": "Прикачете ја првата датотека за да започнете",
+    "status": {
+      "uploaded": "Прикачена",
+      "processing": "Обработка",
+      "processed": "Обработена",
+      "error": "Грешка"
+    },
+    "columns": {
+      "name": "Име",
+      "type": "Тип",
+      "size": "Големина",
+      "records": "Записи",
+      "status": "Статус",
+      "uploaded": "Прикачено",
+      "actions": "Акции"
+    },
+    "actions": {
+      "view": "Прегледај",
+      "download": "Преземи",
+      "delete": "Избриши",
+      "process": "Обработи"
+    },
+    "processSuccess": "Успешно обработени {count} записи"
+  },
+  "records": {
+    "title": "Записи",
+    "allRecords": "Сите записи",
+    "fromFile": "Од датотека",
+    "search": "Пребарај по налог или опис...",
+    "noRecords": "Нема записи",
+    "columns": {
+      "nalog": "Налог",
+      "data": "Дата",
+      "valuta": "Валута",
+      "m_ddv": "М ДДВ",
+      "opis": "Опис",
+      "zatvoranje": "Затворање",
+      "zabeleska": "Забелешка",
+      "dolguja": "Долгува",
+      "pobaruva": "Побарува",
+      "source": "Извор"
+    },
+    "summary": {
+      "totalRecords": "Вкупно записи",
+      "totalDolguja": "Вкупно долгува",
+      "totalPobaruva": "Вкупно побарува",
+      "balance": "Салдо"
+    },
+    "export": "Извези CSV"
+  },
+  "clients": {
+    "title": "Клиенти",
+    "invite": "Покани клиент",
+    "inviteTitle": "Покани нов клиент",
+    "clientEmail": "Е-пошта на клиентот",
+    "sendInvite": "Испрати покана",
+    "noClients": "Нема клиенти",
+    "inviteFirst": "Поканете го првиот клиент",
+    "status": {
+      "pending": "Чека",
+      "active": "Активен",
+      "inactive": "Неактивен",
+      "expired": "Истечен"
+    },
+    "actions": {
+      "resend": "Повторно испрати",
+      "deactivate": "Деактивирај",
+      "activate": "Активирај",
+      "remove": "Отстрани"
+    }
+  },
+  "merge": {
+    "title": "Спојување на датотеки",
+    "create": "Ново спојување",
+    "createTitle": "Избери датотеки за спојување",
+    "selectFiles": "Избери датотеки",
+    "selectedCount": "Избрано: {count}",
+    "minFiles": "Потребни се најмалку 2 датотеки",
+    "jobName": "Име на спојување",
+    "startMerge": "Започни спојување",
+    "noJobs": "Нема спојувања",
+    "createFirst": "Креирајте го првото спојување",
+    "status": {
+      "pending": "Чека",
+      "processing": "Обработка",
+      "completed": "Завршено",
+      "error": "Грешка"
+    },
+    "result": {
+      "title": "Резултат од спојување",
+      "stats": "Статистика",
+      "overlapCount": "Преклопени налози",
+      "exportExcel": "Извези Excel",
+      "exportCSV": "Извези CSV"
+    }
+  },
+  "profile": {
+    "title": "Мој профил",
+    "personalInfo": "Лични информации",
+    "accountInfo": "Информации за сметка",
+    "changePassword": "Промени лозинка",
+    "currentPassword": "Тековна лозинка",
+    "newPassword": "Нова лозинка",
+    "save": "Зачувај",
+    "memberSince": "Член од"
+  },
+  "common": {
+    "loading": "Вчитување...",
+    "save": "Зачувај",
+    "cancel": "Откажи",
+    "delete": "Избриши",
+    "confirm": "Потврди",
+    "search": "Пребарај",
+    "filter": "Филтрирај",
+    "actions": "Акции",
+    "yes": "Да",
+    "no": "Не",
+    "error": "Грешка",
+    "success": "Успешно",
+    "warning": "Внимание",
+    "info": "Информација",
+    "noData": "Нема податоци",
+    "retry": "Обиди се повторно"
+  },
+  "errors": {
+    "generic": "Настана грешка. Обидете се повторно.",
+    "network": "Проблем со мрежата. Проверете ја врската.",
+    "unauthorized": "Немате пристап до овој ресурс.",
+    "notFound": "Ресурсот не е пронајден.",
+    "validation": "Проверете ги внесените податоци."
+  }
+}

@@ -1,0 +1,240 @@
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { useAuthStore } from '../stores/auth'
+import { useUIStore } from '../stores/ui'
+import Header from '../components/layout/Header.vue'
+import LoadingSpinner from '../components/common/LoadingSpinner.vue'
+import { getMergeResult, exportMergeToCSV } from '../api/merge'
+
+const route = useRoute()
+const router = useRouter()
+const { t } = useI18n()
+const authStore = useAuthStore()
+const uiStore = useUIStore()
+
+const result = ref(null)
+const loading = ref(true)
+const search = ref('')
+const sourceFilter = ref('')
+
+const filteredRecords = computed(() => {
+  if (!result.value?.records) return []
+
+  let records = result.value.records
+
+  if (search.value) {
+    const q = search.value.toLowerCase()
+    records = records.filter(r =>
+      r.nalog?.toLowerCase().includes(q) ||
+      r.opis?.toLowerCase().includes(q)
+    )
+  }
+
+  if (sourceFilter.value) {
+    records = records.filter(r => r.files?.file_name === sourceFilter.value)
+  }
+
+  return records
+})
+
+const sourceFiles = computed(() => {
+  if (!result.value?.records) return []
+  const sources = new Set(result.value.records.map(r => r.files?.file_name).filter(Boolean))
+  return Array.from(sources)
+})
+
+// Color mapping for source files
+const sourceColors = ['bg-blue-100 text-blue-800', 'bg-green-100 text-green-800', 'bg-purple-100 text-purple-800', 'bg-orange-100 text-orange-800', 'bg-pink-100 text-pink-800']
+
+function getSourceColor(fileName) {
+  const index = sourceFiles.value.indexOf(fileName)
+  return sourceColors[index % sourceColors.length] || 'bg-gray-100 text-gray-800'
+}
+
+onMounted(async () => {
+  await loadResult()
+})
+
+async function loadResult() {
+  try {
+    loading.value = true
+    result.value = await getMergeResult(route.params.jobId)
+  } catch (err) {
+    uiStore.showError(t('errors.generic'))
+    router.push('/merge')
+  } finally {
+    loading.value = false
+  }
+}
+
+function handleExportCSV() {
+  const csv = exportMergeToCSV(result.value.records)
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `merge_${result.value.job.name || 'export'}_${new Date().toISOString().split('T')[0]}.csv`
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
+function formatNumber(num) {
+  if (!num && num !== 0) return '-'
+  return new Intl.NumberFormat(uiStore.locale === 'mk' ? 'mk-MK' : 'en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(num)
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '-'
+  return new Date(dateStr).toLocaleDateString(uiStore.locale === 'mk' ? 'mk-MK' : 'en-US')
+}
+</script>
+
+<template>
+  <div>
+    <Header :title="t('merge.result.title')">
+      <template #actions>
+        <button @click="router.push('/merge')" class="btn btn-secondary mr-2">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back
+        </button>
+        <button v-if="result" @click="handleExportCSV" class="btn btn-primary">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          {{ t('merge.result.exportCSV') }}
+        </button>
+      </template>
+    </Header>
+
+    <div class="p-6">
+      <!-- Loading -->
+      <div v-if="loading" class="flex items-center justify-center py-12">
+        <LoadingSpinner size="lg" :text="t('common.loading')" />
+      </div>
+
+      <template v-else-if="result">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+          <div class="card p-4">
+            <p class="text-sm text-gray-500">{{ t('records.summary.totalRecords') }}</p>
+            <p class="text-2xl font-bold text-gray-900">{{ result.stats.totalRecords.toLocaleString() }}</p>
+          </div>
+          <div class="card p-4 border-l-4 border-red-500">
+            <p class="text-sm text-gray-500">{{ t('records.summary.totalDolguja') }}</p>
+            <p class="text-2xl font-bold text-red-600">{{ formatNumber(result.stats.totalDolguja) }}</p>
+          </div>
+          <div class="card p-4 border-l-4 border-green-500">
+            <p class="text-sm text-gray-500">{{ t('records.summary.totalPobaruva') }}</p>
+            <p class="text-2xl font-bold text-green-600">{{ formatNumber(result.stats.totalPobaruva) }}</p>
+          </div>
+          <div class="card p-4 border-l-4 border-blue-500">
+            <p class="text-sm text-gray-500">{{ t('records.summary.balance') }}</p>
+            <p :class="['text-2xl font-bold', result.stats.balance >= 0 ? 'text-green-600' : 'text-red-600']">
+              {{ formatNumber(result.stats.balance) }}
+            </p>
+          </div>
+          <div class="card p-4 border-l-4 border-orange-500">
+            <p class="text-sm text-gray-500">{{ t('merge.result.overlapCount') }}</p>
+            <p class="text-2xl font-bold text-orange-600">{{ result.stats.overlapCount }}</p>
+          </div>
+        </div>
+
+        <!-- Source breakdown -->
+        <div class="card p-4 mb-6">
+          <h3 class="font-medium text-gray-900 mb-3">Records by Source</h3>
+          <div class="flex flex-wrap gap-3">
+            <div
+              v-for="(data, source) in result.stats.bySource"
+              :key="source"
+              :class="['px-3 py-2 rounded-lg', getSourceColor(source)]"
+            >
+              <span class="font-medium">{{ source }}</span>
+              <span class="ml-2 opacity-75">{{ data.count }} records</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="card p-4 mb-6">
+          <div class="flex flex-wrap gap-4">
+            <div class="flex-1 min-w-[200px]">
+              <input
+                v-model="search"
+                type="text"
+                class="input"
+                :placeholder="t('records.search')"
+              />
+            </div>
+            <div class="w-64">
+              <select v-model="sourceFilter" class="input">
+                <option value="">All Sources</option>
+                <option v-for="source in sourceFiles" :key="source" :value="source">
+                  {{ source }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Records Table -->
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>{{ t('records.columns.source') }}</th>
+                  <th>{{ t('records.columns.nalog') }}</th>
+                  <th>{{ t('records.columns.data') }}</th>
+                  <th>{{ t('records.columns.m_ddv') }}</th>
+                  <th>{{ t('records.columns.opis') }}</th>
+                  <th class="text-right">{{ t('records.columns.dolguja') }}</th>
+                  <th class="text-right">{{ t('records.columns.pobaruva') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="record in filteredRecords" :key="record.id">
+                  <td>
+                    <span :class="['px-2 py-1 text-xs font-medium rounded', getSourceColor(record.files?.file_name)]">
+                      {{ record.files?.file_name || '-' }}
+                    </span>
+                  </td>
+                  <td class="font-mono">
+                    <span
+                      :class="{ 'text-orange-600 font-bold': result.stats.overlappingNalog.includes(record.nalog) }"
+                      :title="result.stats.overlappingNalog.includes(record.nalog) ? 'Appears in multiple files' : ''"
+                    >
+                      {{ record.nalog || '-' }}
+                    </span>
+                  </td>
+                  <td>{{ formatDate(record.data) }}</td>
+                  <td>{{ record.m_ddv || '-' }}</td>
+                  <td class="max-w-xs truncate" :title="record.opis">{{ record.opis || '-' }}</td>
+                  <td class="text-right font-mono text-red-600">
+                    {{ record.dolguja ? formatNumber(record.dolguja) : '-' }}
+                  </td>
+                  <td class="text-right font-mono text-green-600">
+                    {{ record.pobaruva ? formatNumber(record.pobaruva) : '-' }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot class="bg-gray-50 font-semibold">
+                <tr>
+                  <td colspan="5" class="text-right">Totals:</td>
+                  <td class="text-right font-mono text-red-600">{{ formatNumber(result.stats.totalDolguja) }}</td>
+                  <td class="text-right font-mono text-green-600">{{ formatNumber(result.stats.totalPobaruva) }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</template>

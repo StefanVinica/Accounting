@@ -1,0 +1,45 @@
+# Environment variables (contains secrets)
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Node.js (for future Next.js app)
+node_modules/
+.next/
+out/
+build/
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Output files (regeneratable)
+prototype/Merged_Accounting.xlsx
+prototype/accounting_viewer.html
+
+# Vite
+dist/
+*.local
+
+# Claude
+.claude/
