@@ -28,6 +28,25 @@ export function validateFile(file) {
 }
 
 /**
+ * Sanitize filename for storage (remove non-ASCII characters)
+ */
+function sanitizeFilename(filename) {
+  // Get extension
+  const lastDot = filename.lastIndexOf('.')
+  const ext = lastDot > 0 ? filename.slice(lastDot) : ''
+  const name = lastDot > 0 ? filename.slice(0, lastDot) : filename
+
+  // Replace non-ASCII with underscore, collapse multiple underscores
+  const sanitized = name
+    .replace(/[^\x00-\x7F]/g, '_')  // Replace non-ASCII
+    .replace(/[^a-zA-Z0-9_-]/g, '_') // Replace special chars
+    .replace(/_+/g, '_')             // Collapse multiple underscores
+    .replace(/^_|_$/g, '')           // Trim underscores
+
+  return (sanitized || 'file') + ext.toLowerCase()
+}
+
+/**
  * Upload a file to Supabase Storage and create a file record
  * @param {File} file - The file to upload
  * @param {string} userId - The owner's user ID
@@ -42,7 +61,8 @@ export async function uploadFile(file, userId, onProgress = () => {}) {
 
   const extension = file.name.split('.').pop()?.toLowerCase()
   const timestamp = Date.now()
-  const storagePath = `${userId}/${timestamp}_${file.name}`
+  const sanitizedName = sanitizeFilename(file.name)
+  const storagePath = `${userId}/${timestamp}_${sanitizedName}`
 
   // Upload to storage
   const { data: uploadData, error: uploadError } = await storage
