@@ -43,12 +43,12 @@ const { t } = useI18n()
       class="modal-backdrop animate-fade-in"
       @click.self="emit('cancel')"
     >
-      <div class="modal-content animate-slide-up p-6">
+      <div class="modal-content animate-slide-up p-6 max-w-md mx-4">
         <!-- Header -->
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ title }}</h3>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ title }}</h3>
 
         <!-- Message -->
-        <p v-if="message" class="text-sm text-gray-600 mb-6">{{ message }}</p>
+        <p v-if="message" class="text-sm text-gray-600 dark:text-gray-400 mb-6">{{ message }}</p>
 
         <!-- Slot for custom content -->
         <slot></slot>

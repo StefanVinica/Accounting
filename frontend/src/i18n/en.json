@@ -139,12 +139,18 @@
     "create": "New Merge",
     "createTitle": "Select Files to Merge",
     "selectFiles": "Select Files",
+    "selected": "selected",
     "selectedCount": "Selected: {count}",
     "minFiles": "At least 2 files required",
     "jobName": "Merge Name",
     "startMerge": "Start Merge",
     "noJobs": "No merge jobs",
     "createFirst": "Create your first merge",
+    "noProcessedFiles": "No processed files available",
+    "uploadFirst": "Upload and process at least 2 files first",
+    "sameTypeOnly": "Only files of the same type can be merged",
+    "selectToStart": "Select a file to start",
+    "differentType": "Different type",
     "status": {
       "pending": "Pending",
       "processing": "Processing",
@@ -200,7 +206,9 @@
     "warning": "Warning",
     "info": "Info",
     "noData": "No data",
-    "retry": "Retry"
+    "retry": "Retry",
+    "clearAll": "Clear all",
+    "creating": "Creating..."
   },
   "errors": {
     "generic": "An error occurred. Please try again.",

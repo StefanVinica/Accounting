@@ -232,7 +232,7 @@ function getClientEmail(client) {
         class="modal-backdrop animate-fade-in"
         @click.self="showInviteModal = false"
       >
-        <div class="modal-content animate-slide-up p-6">
+        <div class="modal-content animate-slide-up p-6 max-w-md mx-4">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('clients.inviteTitle') }}</h3>
 
           <form @submit.prevent="handleInvite">
