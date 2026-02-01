@@ -46,13 +46,13 @@ function toggleLanguage() {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-slate-100 px-4">
+  <div class="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-gray-900 px-4">
     <div class="w-full max-w-md">
       <!-- Language toggle -->
       <div class="flex justify-end mb-4">
         <button
           @click="toggleLanguage"
-          class="text-sm text-gray-500 hover:text-gray-700"
+          class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
         >
           {{ uiStore.locale === 'mk' ? 'English' : 'Македонски' }}
         </button>
@@ -66,14 +66,14 @@ function toggleLanguage() {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
           </div>
-          <h1 class="text-2xl font-bold text-gray-900">{{ t('auth.welcomeBack') }}</h1>
-          <p class="text-sm text-gray-500 mt-1">{{ t('app.tagline') }}</p>
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('auth.welcomeBack') }}</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ t('app.tagline') }}</p>
         </div>
 
         <!-- Error message -->
         <div
           v-if="error"
-          class="bg-red-50 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm"
+          class="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-6 text-sm"
         >
           {{ error }}
         </div>
@@ -121,9 +121,9 @@ function toggleLanguage() {
         </form>
 
         <!-- Sign up link -->
-        <p class="text-center text-sm text-gray-500 mt-6">
+        <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           {{ t('auth.noAccount') }}
-          <router-link to="/signup" class="text-blue-600 hover:text-blue-700 font-medium">
+          <router-link to="/signup" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
             {{ t('auth.signup') }}
           </router-link>
         </p>
