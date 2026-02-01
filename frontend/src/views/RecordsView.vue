@@ -257,6 +257,7 @@ function formatDate(dateStr) {
                 <th>{{ t('records.columns.m_ddv') }}</th>
                 <th>{{ t('records.columns.opis') }}</th>
                 <th>{{ t('records.columns.zatvoranje') }}</th>
+                <th>{{ t('records.columns.invoiceNumber') }}</th>
                 <th class="text-right">{{ t('records.columns.dolguja') }}</th>
                 <th class="text-right">{{ t('records.columns.pobaruva') }}</th>
                 <th>{{ t('records.columns.source') }}</th>
@@ -269,6 +270,7 @@ function formatDate(dateStr) {
                 <td>{{ record.m_ddv || '-' }}</td>
                 <td class="max-w-xs truncate" :title="record.opis">{{ record.opis || '-' }}</td>
                 <td>{{ record.zatvoranje || '-' }}</td>
+                <td class="font-mono text-sm text-blue-600">{{ record.invoice_number || '-' }}</td>
                 <td class="text-right font-mono text-red-600">
                   {{ record.dolguja ? formatNumber(record.dolguja) : '-' }}
                 </td>

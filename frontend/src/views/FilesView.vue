@@ -150,6 +150,7 @@ function formatDate(dateStr) {
             <tr>
               <th>{{ t('files.columns.name') }}</th>
               <th>{{ t('files.columns.type') }}</th>
+              <th>{{ t('files.columns.documentType') }}</th>
               <th>{{ t('files.columns.size') }}</th>
               <th>{{ t('files.columns.records') }}</th>
               <th>{{ t('files.columns.status') }}</th>
@@ -169,6 +170,12 @@ function formatDate(dateStr) {
               </td>
               <td>
                 <span class="uppercase text-xs font-medium text-gray-500">{{ file.file_type }}</span>
+              </td>
+              <td>
+                <span v-if="file.document_type" class="text-sm text-gray-600">
+                  {{ t(`files.documentTypes.${file.document_type}`) }}
+                </span>
+                <span v-else class="text-gray-400">-</span>
               </td>
               <td>{{ formatFileSize(file.file_size) }}</td>
               <td>

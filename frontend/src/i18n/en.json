@@ -65,11 +65,18 @@
     "columns": {
       "name": "Name",
       "type": "Type",
+      "documentType": "Document Type",
       "size": "Size",
       "records": "Records",
       "status": "Status",
       "uploaded": "Uploaded",
       "actions": "Actions"
+    },
+    "documentTypes": {
+      "analytical_card_simple": "Analytical Card",
+      "analytical_card_detailed": "Analytical Card (Detailed)",
+      "balance_sheet": "Balance Sheet",
+      "unknown": "Unknown"
     },
     "actions": {
       "view": "View",
@@ -95,6 +102,7 @@
       "zabeleska": "Note",
       "dolguja": "Debit",
       "pobaruva": "Credit",
+      "invoiceNumber": "Invoice #",
       "source": "Source"
     },
     "summary": {
@@ -149,6 +157,21 @@
       "overlapCount": "Overlapping Documents",
       "exportExcel": "Export Excel",
       "exportCSV": "Export CSV"
+    },
+    "matchStatus": {
+      "paid": "Paid",
+      "partial": "Partial",
+      "outstanding": "Outstanding",
+      "overpaid": "Overpaid"
+    },
+    "matchGroups": {
+      "title": "Invoices",
+      "invoiceNumber": "Invoice #",
+      "totalCredit": "Invoiced",
+      "totalDebit": "Paid",
+      "balance": "Balance",
+      "recordCount": "Records",
+      "noMatches": "No matched invoices"
     }
   },
   "profile": {

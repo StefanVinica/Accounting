@@ -65,11 +65,18 @@
     "columns": {
       "name": "Име",
       "type": "Тип",
+      "documentType": "Тип на документ",
       "size": "Големина",
       "records": "Записи",
       "status": "Статус",
       "uploaded": "Прикачено",
       "actions": "Акции"
+    },
+    "documentTypes": {
+      "analytical_card_simple": "Ан. картица",
+      "analytical_card_detailed": "Ан. картица (детална)",
+      "balance_sheet": "Заклучна листа",
+      "unknown": "Непознат"
     },
     "actions": {
       "view": "Прегледај",
@@ -95,6 +102,7 @@
       "zabeleska": "Забелешка",
       "dolguja": "Долгува",
       "pobaruva": "Побарува",
+      "invoiceNumber": "Број на фактура",
       "source": "Извор"
     },
     "summary": {
@@ -149,6 +157,21 @@
       "overlapCount": "Преклопени налози",
       "exportExcel": "Извези Excel",
       "exportCSV": "Извези CSV"
+    },
+    "matchStatus": {
+      "paid": "Платено",
+      "partial": "Делумно",
+      "outstanding": "Неподмирено",
+      "overpaid": "Преплатено"
+    },
+    "matchGroups": {
+      "title": "Фактури",
+      "invoiceNumber": "Број на фактура",
+      "totalCredit": "Фактурирано",
+      "totalDebit": "Платено",
+      "balance": "Салдо",
+      "recordCount": "Записи",
+      "noMatches": "Нема поврзани фактури"
     }
   },
   "profile": {
